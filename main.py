@@ -1,5 +1,6 @@
 from time import sleep
 
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -18,8 +19,14 @@ def find_element_if_visible(locator, driver):
     return wait.until(ec.visibility_of_element_located(locator))
 
 
+def get_web_driver():
+    options = Options()
+    options.add_argument("--headless")
+    return Chrome(options=options)
+
+
 def main():
-    driver = Chrome()
+    driver = get_web_driver()
     login(driver)
 
     while True:
